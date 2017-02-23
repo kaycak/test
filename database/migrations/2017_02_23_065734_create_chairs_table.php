@@ -15,14 +15,9 @@ class CreateChairsTable extends Migration
     {
         Schema::create('chairs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('room_id')->nullable()->unsigned()->index();
             $table->integer('number');
+            $table->boolean('active')->default(true);
             $table->timestamps();
-
-             /**
-             * Table relations
-             */
-            $table->foreign('room_id')->references('id')->on('rooms')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 

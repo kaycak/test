@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMoviesChairsTable extends Migration
+class CreateRoomsMoviesChairsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,17 @@ class CreateMoviesChairsTable extends Migration
      */
     public function up()
     {
-        Schema::create('movies_chairs', function (Blueprint $table) {
+        Schema::create('rooms_movies_chairs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('chair_id')->nullable()->unsigned()->index();
             $table->integer('movie_id')->nullable()->unsigned()->index();
+            $table->integer('room_id')->nullable()->unsigned()->index();
             /**
              * Table relations
              */
             $table->foreign('chair_id')->references('id')->on('chairs')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign('movie_id')->references('id')->on('movies')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign('room_id')->references('id')->on('rooms')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -32,6 +34,7 @@ class CreateMoviesChairsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movies_chairs');
+        Schema::dropIfExists('rooms_movies_chairs');
     }
+
 }

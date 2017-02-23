@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\RoomsRepository;
+use App\Repositories\MoviesRepository;
 
 class HomeController extends Controller
 {
@@ -21,8 +23,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(RoomsRepository $roomsRepository, MoviesRepository $moviesRepository)
     {
-        return view('home');
+        $rooms = $roomsRepository->getAllRooms();
+        $movies = $moviesRepository->getAllMovies();
+        return view('home', ['rooms' => $rooms, 'movies' => $movies]);
     }
 }

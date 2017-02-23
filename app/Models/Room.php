@@ -12,16 +12,11 @@ class Room extends Model
 
     public function movies()
     {
-    	return $this->belongsToMany('\\App\\Models\\Movie', 'rooms_movies', 'movie_id', 'room_id');
+    	return $this->belongsToMany('\\App\\Models\\Movie', 'rooms_movies', 'room_id', 'movie_id');
     }
 
     public function chairs()
     {
-    	return $this->hasMany('\\App\\Models\\Chair');
-    }
-
-    public function active_chairs()
-    {
-    	return $this->hasMany('\\App\\Models\\ChairActivity')->where('active', true);
+    	return $this->belongsToMany('\\App\\Models\\Chair', 'rooms_chairs', 'room_id', 'chair_id');
     }
 }

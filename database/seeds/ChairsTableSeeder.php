@@ -12,9 +12,9 @@ class ChairsTableSeeder extends Seeder
     public function run()
     {
         $chairs = array(
-            ['number' => 1, 'room_id' => 1],
-            ['number' => 2, 'room_id' => 1],
-            ['number' => 3, 'room_id' => 1],
+            ['number' => 1, 'active' => true],
+            ['number' => 2, 'active' => true],
+            ['number' => 3, 'active' => true],
         );
         DB::table('chairs')->insert($chairs);
     }

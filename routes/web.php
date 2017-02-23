@@ -21,3 +21,15 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/', 'RoomsController@index');
 Route::post('/save-chair', 'ChairsController@saveChair');
+
+// Admin routes
+
+Route::get('/add-room', 'Admin\RoomsController@create');
+Route::post('/add-room', 'Admin\RoomsController@store');
+
+Route::get('/rooms/{id}/add-movie', 'Admin\RoomsController@createMovie');
+Route::post('/add-movie', 'Admin\RoomsController@addMovie');
+
+Route::get('/rooms/{id}/add-chair', 'Admin\RoomsController@createChair');
+
+Route::post('/add-chair', 'Admin\RoomsController@addChair');

@@ -4,14 +4,18 @@ namespace App\Repositories;
 use App\Contracts\RoomInterface;
 use App\User;
 use App\Models\Room;
+use App\Models\Chair;
+use App\Models\Movie;
 use Auth;
 
 class RoomsRepository implements RoomInterface
 {
 
-	public function __construct(Room $room)
+	public function __construct(Room $room,Chair $chair, Movie $movie)
 	{
 		$this->room = $room;
+		$this->chair = $chair;
+		$this->movie = $movie;
 	}
 
 	public function getAllRooms()
@@ -19,10 +23,32 @@ class RoomsRepository implements RoomInterface
 		return $this->room->with('movies')->get();
 	}
 
-	// public function getActiveChairs($rooms)
-	// {
+	public function addRoom($params)
+	{
+		return $this->room->create($params);
+	}
 
-	// 	$active_chair_ids = $rooms[0]->active_chairs->pluck('chair_id')->toArray()
-	// }
+	public function addMovie($params)
+	{
+		$room_id = $params['room_id'];
+		unset($params['room_id']);
+		$movie = $this->movie->create($params);
+		if($movie) {
+			$this->room->find($room_id)->movies()->attach([$movie->id]);
+			return $movie;
+		}
+		return null;
+	}
 
+	public function addChair($params)
+	{
+		$room_id = $params['room_id'];
+		unset($params['room_id']);
+		$chair = $this->chair->create($params);
+		if($chair) {
+			$this->room->find($room_id)->chairs()->attach([$chair->id]);
+			return $chair;
+		}
+		return null;
+	}
 }

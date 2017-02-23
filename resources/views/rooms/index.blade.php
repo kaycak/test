@@ -12,9 +12,11 @@
 					@include('alerts.no-data')
 				@endforelse
 				<div class="hide movie_active_chairs_{{$movie->id}}">
-					free chairs for {{$movie->name}} movie in {{$room->name}} room
+					free chairs for {{$movie->name}} movie in {{$room->name}} room ` 
 					@forelse($room->chairs as $chair)
-
+						@if($chair->active == 1)
+							{{$chair->number}}, 
+						@endif
 					@empty
 						@include('alerts.no-data')
 					@endforelse
